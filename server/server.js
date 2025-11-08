@@ -12,8 +12,18 @@ const app = express();
 const server = http.createServer(app);
 
 
+// CORS configuration - update with your frontend URL after deployment
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    process.env.FRONTEND_URL, // Add your production frontend URL in environment variables
+].filter(Boolean); // Remove undefined values
+
 export const io = new Server(server, {
-    cors: {origin: "*"}
+    cors: {
+        origin: allowedOrigins.length > 0 ? allowedOrigins : "*",
+        credentials: true
+    }
 })
 
 
@@ -38,7 +48,29 @@ io.on("connection", (socket)=>{
 })
 
 app.use(express.json({limit: '4mb'}));
-app.use(cors());
+
+// CORS configuration
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        const allowedOrigins = [
+            'http://localhost:5173',
+            'http://localhost:3000',
+            process.env.FRONTEND_URL, // Add your production frontend URL
+        ].filter(Boolean);
+        
+        if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 
 app.use("/api/status", (req, res)=> res.send("Server is live"));
 app.use("/api/auth", userRouter);
