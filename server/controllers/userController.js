@@ -20,7 +20,6 @@ export const signup = async (req, res)=> {
         const newUser = await User.create({ fullName, email, password: hashedPassword, bio});
         const token = generateToken(newUser._id);
         
-        // Return user without password
         const userData = await User.findById(newUser._id).select("-password");
 
         res.json({success: true, userData, token, message: "Account created successfully"})
@@ -50,12 +49,10 @@ export const login = async (req, res) =>{
     }
     }
 
-    // controller to check if user is authenticated 
     export const checkAuth = (req, res)=>{
         res.json({success: true, user: req.user});
     }
 
-    // controller to update user profile
     export const updateProfile = async (req, res)=>{
         try{
             const { profilePic, bio, fullName} = req.body;

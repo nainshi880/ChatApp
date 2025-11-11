@@ -1,8 +1,12 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "cd client && npm ci && npm run build",
+  "outputDirectory": "client/dist",
   "framework": "vite",
   "rewrites": [
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.svg"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
