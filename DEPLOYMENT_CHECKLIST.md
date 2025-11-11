@@ -10,10 +10,15 @@ Follow these steps in order to deploy your chat app.
 - [ ] Get connection string
 - [ ] Test connection string format
 
-**Connection String Format:**
+**Connection String Format (do NOT commit real credentials):**
+
+Use a placeholder-only example that won’t be mistaken for a real secret:
+
 ```
-mongodb+srv://USERNAME:PASSWORD@CLUSTER.mongodb.net/chat-app?retryWrites=true&w=majority
+mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
 ```
+
+If you previously committed a real connection string, rotate your MongoDB user password immediately and force-push a commit that removes it from the repo history.
 
 ---
 
