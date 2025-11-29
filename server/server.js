@@ -12,12 +12,11 @@ const app = express();
 const server = http.createServer(app);
 
 
-// CORS configuration - update with your frontend URL after deployment
 const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:3000',
-    process.env.FRONTEND_URL, // Add your production frontend URL in environment variables
-].filter(Boolean); // Remove undefined values
+    process.env.FRONTEND_URL, 
+].filter(Boolean); 
 
 export const io = new Server(server, {
     cors: {
@@ -49,16 +48,15 @@ io.on("connection", (socket)=>{
 
 app.use(express.json({limit: '4mb'}));
 
-// CORS configuration
+
 const corsOptions = {
     origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
         
         const allowedOrigins = [
             'http://localhost:5173',
             'http://localhost:3000',
-            process.env.FRONTEND_URL, // Add your production frontend URL
+            process.env.FRONTEND_URL,
         ].filter(Boolean);
         
         if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {

@@ -26,9 +26,7 @@ Your app needs to be hosted in 3 parts:
    - Go to "Clusters" → "Connect" → "Connect your application"
    - Copy the connection string
    - Replace `<password>` with your database user password
-   - The connection string will look like: `mongodb+srv://[username]:[password]@[cluster-name].mongodb.net/[database-name]?retryWrites=true&w=majority`
-   - Replace the placeholders `[username]`, `[password]`, `[cluster-name]`, and `[database-name]` with your actual values
-   - Example database name: `chat-app`
+   - Example: `mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/chat-app?retryWrites=true&w=majority`
 
 ---
 
